@@ -31,7 +31,7 @@ namespace Emailer
             services.AddTransient<IEmailMessageRepository, EmailMessageRepository>();
             services.AddTransient<IEmailMessageService, EmailMessageService>();
             services.AddTransient<IEmailSenderService, EmailSenderService>();
-            services.AddTransient<IEmailSendigJob, EmailSendingEmailSendigJob>();
+            //services.AddTransient<IEmailSendingJob, EmailSendingJob>();
 
             services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection")));
             

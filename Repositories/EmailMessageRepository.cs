@@ -49,17 +49,20 @@ namespace Emailer.Repositories
             }
         }
 
-        public async Task<IEnumerable<EmailMessage>> GetAllWithStatus(EmailMessageStatus status)
+        public async Task<IEnumerable<EmailMessage>> GetEmailsForSending(int count)
         {
             using (var connection = new SqlConnection(_configuration.ConnectionString))
             {
-                var query = "SELECT * FROM [dbo].[EmailMessage] WHERE Status = @status";
+                var pendingStatus = EmailMessageStatus.Pending;
+                var sendingStatus = EmailMessageStatus.Sending;
+                var query = "UPDATE TOP(@count) [dbo].[EmailMessage] SET Status = @sendingStatus OUTPUT inserted.* WHERE Status = @pendingStatus";
 
-                using (var reader = connection.QueryMultiple(query, new { status }))
+                using (var reader = connection.QueryMultiple(query, new { pendingStatus, count, sendingStatus }))
                 {
                     return await reader.ReadAsync<EmailMessage>();
                 }
             }
         }
+
     }
 }

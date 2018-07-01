@@ -7,11 +7,11 @@ using Hangfire;
 
 namespace Emailer.Worker.Jobs
 {
-    public class EmailSendingJob : IEmailSendingJob
+    public class EmailSendigJob : IEmailSendingJob
     {
         private readonly IEmailMessageRepository _emailMessageRepository;
 
-        public EmailSendingJob(IEmailMessageRepository emailMessageRepository)
+        public EmailSendigJob(IEmailMessageRepository emailMessageRepository)
         {
             _emailMessageRepository = emailMessageRepository;
         }
@@ -23,7 +23,8 @@ namespace Emailer.Worker.Jobs
 
         public async Task StartSendingEmails()
         {
-            var emailsToSent = await _emailMessageRepository.GetAllWithStatus(EmailMessageStatus.Pending);
+            var emailsCount = 2;
+            var emailsToSent = await _emailMessageRepository.GetEmailsForSending(emailsCount);
 
             foreach (var emailMessage in emailsToSent.ToList())
             {

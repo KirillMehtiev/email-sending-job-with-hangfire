@@ -1,7 +1,9 @@
-﻿namespace Emailer.Worker.Jobs
+﻿using System.Threading.Tasks;
+
+namespace Emailer.Worker.Jobs
 {
-    public interface IEmailSendingJob : IJob
+    public interface IEmailSendingJob
     {
-        
+        Task Execute();
     }
 }

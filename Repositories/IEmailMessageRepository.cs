@@ -11,6 +11,6 @@ namespace Emailer.Repositories
         Task<bool> UpdateAsync(EmailMessage emailMessage);
         Task<bool> DeleteAsync(EmailMessage emailMessage);
 
-        Task<IEnumerable<EmailMessage>> GetAllWithStatus(EmailMessageStatus status);
+        Task<IEnumerable<EmailMessage>> GetEmailsForSending(int count);
     }
 }
